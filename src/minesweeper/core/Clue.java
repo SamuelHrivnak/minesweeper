@@ -18,7 +18,7 @@ public class Clue  extends Tile {
 	public int getValue() {
 		return value;
 	}
-    
+    //zmena
     
     
 }

@@ -1,31 +1,62 @@
 package minesweeper;
 
 import minesweeper.consoleui.ConsoleUI;
+import minesweeper.core.Clue;
 import minesweeper.core.Field;
+import minesweeper.core.Tile;
 
 /**
  * Main application class.
  */
 public class Minesweeper {
-    /** User interface. */
-    private ConsoleUI userInterface;
- 
-    /**
-     * Constructor.
-     */
-    private Minesweeper() {
-        userInterface = new ConsoleUI();
-        
-        Field field = new Field(9, 9, 10);
-        field.printField();
-        userInterface.newGameStarted(field);
-    }
+	/** User interface. */
+	private ConsoleUI userInterface;
 
-    /**
-     * Main method.
-     * @param args arguments
-     */
-    public static void main(String[] args) {
-        new Minesweeper();
-    }
+	/**
+	 * Constructor.
+	 */
+	private Minesweeper() {
+		userInterface = new ConsoleUI();
+
+		Field field = new Field(9, 9, 10);
+		// field.printField();
+		printField1(field);
+		// userInterface.newGameStarted(field);
+	}
+
+	private void printField1(Field field) {
+		for (int row = 0; row < field.getRowCount(); row++) {
+			for (int column = 0; column < field.getColumnCount(); column++) {
+				Tile tile = field.getTile(row, column);
+
+				if (tile instanceof Clue) {
+					if (tile.getState() == Tile.State.OPEN) {
+						System.out.print(((Clue) tile).getValue());
+					}
+					if (tile.getState() == Tile.State.CLOSED) {
+						System.out.print("-");
+					}
+					if (tile.getState() == Tile.State.MARKED) {
+						System.out.print("M");
+					}
+
+				} else {
+					System.out.print("X");
+				}
+
+			}
+			System.out.println();
+		}
+
+	}
+
+	/**
+	 * Main method.
+	 * 
+	 * @param args
+	 *            arguments
+	 */
+	public static void main(String[] args) {
+		new Minesweeper();
+	}
 }

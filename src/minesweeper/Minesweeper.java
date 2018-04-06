@@ -3,6 +3,7 @@ package minesweeper;
 import minesweeper.consoleui.ConsoleUI;
 import minesweeper.core.Clue;
 import minesweeper.core.Field;
+import minesweeper.core.Mine;
 import minesweeper.core.Tile;
 
 /**
@@ -29,19 +30,21 @@ public class Minesweeper {
 			for (int column = 0; column < field.getColumnCount(); column++) {
 				Tile tile = field.getTile(row, column);
 
-				if (tile instanceof Clue) {
-					if (tile.getState() == Tile.State.OPEN) {
+				if (tile.getState() == Tile.State.OPEN) {
+					if (tile instanceof Clue) {
 						System.out.print(((Clue) tile).getValue());
 					}
-					if (tile.getState() == Tile.State.CLOSED) {
-						System.out.print("-");
-					}
-					if (tile.getState() == Tile.State.MARKED) {
-						System.out.print("M");
+					if (tile instanceof Mine) {
+						System.out.print("X");
 					}
 
-				} else {
-					System.out.print("X");
+				}
+				
+				if (tile.getState() == Tile.State.CLOSED) {
+					System.out.print("-");
+				}
+				if (tile.getState() == Tile.State.MARKED) {
+					System.out.print("M");
 				}
 
 			}

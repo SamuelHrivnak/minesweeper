@@ -153,18 +153,13 @@ public class Field {
 	 * @return true if game is solved, false otherwise
 	 */
 	private boolean isSolved() {
+		return (getNumberOfTiles() - getNumberOf(State.OPEN) == mineCount) ;
 
-		if (getNumberOfTiles() - getNumberOf(State.OPEN) == mineCount) {
-			return true;
-		} else {
-			return false;
-		}
-
+		
 	}
 
 	private int getNumberOf(Tile.State state) {
 		int counter = 0;
-
 		for (int row = 0; row < rowCount; row++) {
 			for (int column = 0; column < columnCount; column++) {
 				if (tiles[row][column] instanceof Tile) {
@@ -172,7 +167,6 @@ public class Field {
 						counter++;
 					}
 				}
-
 			}
 		}
 		return counter;

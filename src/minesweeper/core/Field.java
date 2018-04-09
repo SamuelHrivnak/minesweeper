@@ -50,7 +50,7 @@ public class Field {
 		tiles = new Tile[rowCount][columnCount];
 
 		// generate the field content
-		 generate();
+		generate();
 	}
 
 	/**
@@ -100,7 +100,7 @@ public class Field {
 	private void generate() {
 		generateMines();
 		fillWithClues();
-		randomMarkOpenClues();		
+		randomMarkOpenClues();
 
 	}
 
@@ -114,17 +114,14 @@ public class Field {
 				tile.setState(State.MARKED);
 			}
 		}
-	
+
 		for (int i = 0; i < 10; i++) {
 			int row = random.nextInt(rowCount);
 			int column = random.nextInt(columnCount);
-			Tile tile1 = tiles[row][column];	
-				tile1.setState(State.OPEN);
-			}
+			Tile tile1 = tiles[row][column];
+			tile1.setState(State.OPEN);
 		}
-		
-		
-	
+	}
 
 	private void fillWithClues() {
 		for (int row = 0; row < rowCount; row++) {
@@ -156,7 +153,34 @@ public class Field {
 	 * @return true if game is solved, false otherwise
 	 */
 	private boolean isSolved() {
-		throw new UnsupportedOperationException("Method isSolved not yet implemented");
+
+		if (getNumberOfTiles() - getNumberOf(State.OPEN) == mineCount) {
+			return true;
+		} else {
+			return false;
+		}
+
+	}
+
+	private int getNumberOf(Tile.State state) {
+		int counter = 0;
+
+		for (int row = 0; row < rowCount; row++) {
+			for (int column = 0; column < columnCount; column++) {
+				if (tiles[row][column] instanceof Tile) {
+					if (tiles[row][column].getState() == state) {
+						counter++;
+					}
+				}
+
+			}
+		}
+		return counter;
+	}
+
+	private int getNumberOfTiles() {
+
+		return rowCount * columnCount;
 	}
 
 	/**

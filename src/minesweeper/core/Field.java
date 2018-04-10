@@ -100,28 +100,28 @@ public class Field {
 	private void generate() {
 		generateMines();
 		fillWithClues();
-		randomMarkOpenClues();
+	//	randomMarkOpenClues();
 
 	}
 
-	private void randomMarkOpenClues() {
-		Random random = new Random();
-		for (int i = 0; i < 10; i++) {
-			int row = random.nextInt(rowCount);
-			int column = random.nextInt(columnCount);
-			Tile tile = tiles[row][column];
-			if (!(tile instanceof Mine)) {
-				tile.setState(State.MARKED);
-			}
-		}
-
-		for (int i = 0; i < 10; i++) {
-			int row = random.nextInt(rowCount);
-			int column = random.nextInt(columnCount);
-			Tile tile1 = tiles[row][column];
-			tile1.setState(State.OPEN);
-		}
-	}
+//	private void randomMarkOpenClues() {
+//		Random random = new Random();
+//		for (int i = 0; i < 10; i++) {
+//			int row = random.nextInt(rowCount);
+//			int column = random.nextInt(columnCount);
+//			Tile tile = tiles[row][column];
+//			if (!(tile instanceof Mine)) {
+//				tile.setState(State.MARKED);
+//			}
+//		}
+//
+//		for (int i = 0; i < 10; i++) {
+//			int row = random.nextInt(rowCount);
+//			int column = random.nextInt(columnCount);
+//			Tile tile1 = tiles[row][column];
+//			tile1.setState(State.OPEN);
+//		}
+//	}
 
 	private void fillWithClues() {
 		for (int row = 0; row < rowCount; row++) {

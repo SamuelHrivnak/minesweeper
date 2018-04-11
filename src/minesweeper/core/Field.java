@@ -185,9 +185,9 @@ public class Field {
 					int actColumn = column + columnOffset;
 					if (actColumn >= 0 && actColumn < columnCount) {
 						if (tiles[actRow][actColumn] instanceof Clue) {
-							if (tiles[actRow][actColumn]. == 0) {
-
-							}
+//							if (tiles[actRow][actColumn] == 0) {
+//
+//							}
 						}
 					}
 				}

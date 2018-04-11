@@ -66,6 +66,11 @@ public class Field {
 		Tile tile = tiles[row][column];
 		if (tile.getState() == Tile.State.CLOSED) {
 			tile.setState(Tile.State.OPEN);
+			if (tile instanceof Clue) {
+				if (((Clue) tile).getValue() == 0) {
+					openAdjacentTiles(row, column);
+				}
+			}
 			if (tile instanceof Mine) {
 				state = GameState.FAILED;
 				return;
@@ -104,25 +109,6 @@ public class Field {
 		// randomMarkOpenClues();
 
 	}
-
-	// private void randomMarkOpenClues() {
-	// Random random = new Random();
-	// for (int i = 0; i < 10; i++) {
-	// int row = random.nextInt(rowCount);
-	// int column = random.nextInt(columnCount);
-	// Tile tile = tiles[row][column];
-	// if (!(tile instanceof Mine)) {
-	// tile.setState(State.MARKED);
-	// }
-	// }
-	//
-	// for (int i = 0; i < 10; i++) {
-	// int row = random.nextInt(rowCount);
-	// int column = random.nextInt(columnCount);
-	// Tile tile1 = tiles[row][column];
-	// tile1.setState(State.OPEN);
-	// }
-	// }
 
 	private void fillWithClues() {
 		for (int row = 0; row < rowCount; row++) {
@@ -185,9 +171,10 @@ public class Field {
 					int actColumn = column + columnOffset;
 					if (actColumn >= 0 && actColumn < columnCount) {
 						if (tiles[actRow][actColumn] instanceof Clue) {
-//							if (tiles[actRow][actColumn] == 0) {
-//
-//							}
+							Tile tile = tiles[actRow][actColumn];
+							if (((Clue) tile).getValue() == 0) {
+								openTile(actRow, actColumn);
+							}
 						}
 					}
 				}

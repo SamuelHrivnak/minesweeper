@@ -49,9 +49,13 @@ public class ConsoleUI implements UserInterface {
 
 			processInput();
 			update();
-			
-			if (field.getState() == GameState.SOLVED || field.getState() == GameState.FAILED) {
+
+			if (field.getState() == GameState.FAILED) {
 				System.out.println("Game over !");
+				System.exit(0);
+			}
+			if (field.getState() == GameState.SOLVED) {
+				System.out.println("You win game!");
 				System.exit(0);
 			}
 			// throw new UnsupportedOperationException("Resolve the game state - winning or
@@ -95,73 +99,52 @@ public class ConsoleUI implements UserInterface {
 	 * playing field according to input string.
 	 */
 	private void processInput() {
-//		field.openTile(0,0);
-//		field.openTile(1,1);
-//		field.openTile(2, 2);
-//		field.openTile(3, 3);
-//		field.openTile(4, 4);
-				
-		boolean trigger = true;
-		while (trigger == true) {
-			System.out
-					.println("X - quit game \n" + "MA1 - mark row A and column 1 \n" + "OB4 - open row B and column 4");
-			String string = readLine();
-			String pattern = "([MO]?)([A-I])([0-8])";
-			Pattern pattern2 = Pattern.compile(pattern);
-			Matcher matcher = pattern2.matcher(string);
+		System.out.println("X - quit game \n" + "MA1 - mark row A and column 1 \n" + "OB4 - open row B and column 4");
+		String string = readLine();
+		String pattern = "([MO]?)([A-I])([0-8])";
+		Pattern pattern2 = Pattern.compile(pattern);
+		Matcher matcher = pattern2.matcher(string);
 
-			if (string.equals("X")) {
-				trigger = false;
-				 return;
+		if (string.equals("X")) {
+			return;
+		}
+
+		if (matcher.matches()) {
+			String action = matcher.group(1);
+			String row = matcher.group(2);
+			String column = matcher.group(3);
+			int value = 0;
+
+			if (row.equals("A")) {
+				value = 0;
+			} else if (row.equals("B")) {
+				value = 1;
+			} else if (row.equals("C")) {
+				value = 2;
+			} else if (row.equals("D")) {
+				value = 3;
+			} else if (row.equals("E")) {
+				value = 4;
+			} else if (row.equals("F")) {
+				value = 5;
+			} else if (row.equals("G")) {
+				value = 6;
+			} else if (row.equals("H")) {
+				value = 7;
+			} else if (row.equals("I")) {
+				value = 8;
 			}
 
-			if (matcher.matches()) {
-				String action = matcher.group(1);
-				String row = matcher.group(2);
-				String column = matcher.group(3);
-				int value = 0;
+			if (action.equals("O")) {
+				field.openTile(value, Integer.parseInt(column));
 
-				if (row.equals("A")) {
-					value =0;
-				}
-				else if (row.equals("B")) {
-					value =1;
-				}
-				else if (row.equals("C")) {
-					value =2;
-				}
-				else if (row.equals("D")) {
-					value =3;
-				}
-				else if (row.equals("E")) {
-					value =4;
-				}
-				else if (row.equals("F")) {
-					value =5;
-				}
-				else if (row.equals("G")) {
-					value =6;
-				}
-				else if (row.equals("H")) {
-					value =7;
-				}
-				else if (row.equals("I")) {
-					value =8;
-				}
-				
-				if (action.equals("O")) {
-					field.openTile(value, Integer.parseInt(column));
-					trigger = false;
-					return;
-				}else if (action.equals("M")) {
-					field.markTile(value, Integer.parseInt(column));
-					trigger = false;
-					return;
-				}
-
-			} else {
-				System.out.println("Wrong input, please write correctly !");
+				return;
+			} else if (action.equals("M")) {
+				field.markTile(value, Integer.parseInt(column));
+				return;
 			}
+		} else {
+			System.out.println("Wrong input, please write correctly !");
 		}
 	}
 }

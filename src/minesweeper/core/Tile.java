@@ -26,6 +26,7 @@ public abstract class Tile {
         return state;
     }
     
+    
    
 
     /**
@@ -35,4 +36,9 @@ public abstract class Tile {
     void setState(State state) {
         this.state = state;
     }
+
+
+
+
+
 }

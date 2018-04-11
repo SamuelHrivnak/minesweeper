@@ -3,6 +3,7 @@ package minesweeper.core;
 import java.util.Random;
 
 import minesweeper.core.Tile.State;
+import minesweeper.core.*;
 
 /**
  * Field represents playing field and game logic.
@@ -100,28 +101,28 @@ public class Field {
 	private void generate() {
 		generateMines();
 		fillWithClues();
-	//	randomMarkOpenClues();
+		// randomMarkOpenClues();
 
 	}
 
-//	private void randomMarkOpenClues() {
-//		Random random = new Random();
-//		for (int i = 0; i < 10; i++) {
-//			int row = random.nextInt(rowCount);
-//			int column = random.nextInt(columnCount);
-//			Tile tile = tiles[row][column];
-//			if (!(tile instanceof Mine)) {
-//				tile.setState(State.MARKED);
-//			}
-//		}
-//
-//		for (int i = 0; i < 10; i++) {
-//			int row = random.nextInt(rowCount);
-//			int column = random.nextInt(columnCount);
-//			Tile tile1 = tiles[row][column];
-//			tile1.setState(State.OPEN);
-//		}
-//	}
+	// private void randomMarkOpenClues() {
+	// Random random = new Random();
+	// for (int i = 0; i < 10; i++) {
+	// int row = random.nextInt(rowCount);
+	// int column = random.nextInt(columnCount);
+	// Tile tile = tiles[row][column];
+	// if (!(tile instanceof Mine)) {
+	// tile.setState(State.MARKED);
+	// }
+	// }
+	//
+	// for (int i = 0; i < 10; i++) {
+	// int row = random.nextInt(rowCount);
+	// int column = random.nextInt(columnCount);
+	// Tile tile1 = tiles[row][column];
+	// tile1.setState(State.OPEN);
+	// }
+	// }
 
 	private void fillWithClues() {
 		for (int row = 0; row < rowCount; row++) {
@@ -153,9 +154,8 @@ public class Field {
 	 * @return true if game is solved, false otherwise
 	 */
 	private boolean isSolved() {
-		return (getNumberOfTiles() - getNumberOf(State.OPEN) == mineCount) ;
+		return (getNumberOfTiles() - getNumberOf(State.OPEN) == mineCount);
 
-		
 	}
 
 	private int getNumberOf(Tile.State state) {
@@ -175,6 +175,24 @@ public class Field {
 	private int getNumberOfTiles() {
 
 		return rowCount * columnCount;
+	}
+
+	public void openAdjacentTiles(int row, int column) {
+		for (int rowOffset = -1; rowOffset <= 1; rowOffset++) {
+			int actRow = row + rowOffset;
+			if (actRow >= 0 && actRow < rowCount) {
+				for (int columnOffset = -1; columnOffset <= 1; columnOffset++) {
+					int actColumn = column + columnOffset;
+					if (actColumn >= 0 && actColumn < columnCount) {
+						if (tiles[actRow][actColumn] instanceof Clue) {
+							if (tiles[actRow][actColumn]. == 0) {
+
+							}
+						}
+					}
+				}
+			}
+		}
 	}
 
 	/**

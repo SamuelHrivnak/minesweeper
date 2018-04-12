@@ -30,7 +30,10 @@ public class ConsoleUI implements UserInterface {
 	 */
 	private String readLine() {
 		try {
-			return input.readLine();
+			String stringInput= input.readLine();
+			stringInput.trim();
+			stringInput.toUpperCase();
+			return stringInput;
 		} catch (IOException e) {
 			return null;
 		}
@@ -98,14 +101,46 @@ public class ConsoleUI implements UserInterface {
 	 * Processes user input. Reads line from console and does the action on a
 	 * playing field according to input string.
 	 */
+	private void handleInput(String input) throws WrongFormatException{
+		if (input.length() == 1) {
+			if (input.charAt(0) != 'X') {
+				throw new WrongFormatException("Wrong key for exit game");
+			}	
+		}
+		String pattern = "([MO]?)([A-I])([0-9]{1,2})";
+		Pattern pattern2 = Pattern.compile(pattern);
+		Matcher matcher = pattern2.matcher(input);
+		if (matcher.matches()) {
+			String row = matcher.group(2);
+			String column = matcher.group(3);	
+			
+			if (Character.getNumericValue(row.charAt(0)) - 10 > field.getRowCount()-1 || 
+					Integer.parseInt(column)  > field.getColumnCount()-1 || Character.getNumericValue(row.charAt(0)) - 10 < 0 ||  Integer.parseInt(column) < 0 ) {
+				throw new WrongFormatException("Wrong index of tile, repeat Exit key");
+			}
+		}
+		
+		if (!matcher.matches()) {
+			throw new WrongFormatException("Wrong input please write correctly !");
+		}
+		
+		
+	}
 	private void processInput() {
 		System.out.println("X - quit game \n" + "MA1 - mark row A and column 1 \n" + "OB4 - open row B and column 4");
 		String string = readLine();
+		try {
+			handleInput(string);
+		} catch (WrongFormatException ex) {
+			System.err.println(ex.getMessage());
+		}
+				
 		String pattern = "([MO]?)([A-I])([0-8])";
 		Pattern pattern2 = Pattern.compile(pattern);
 		Matcher matcher = pattern2.matcher(string);
-
+	
 		if (string.equals("X")) {
+			System.exit(0);
 			return;
 		}
 
@@ -113,38 +148,15 @@ public class ConsoleUI implements UserInterface {
 			String action = matcher.group(1);
 			String row = matcher.group(2);
 			String column = matcher.group(3);
-			int value = 0;
-
-			if (row.equals("A")) {
-				value = 0;
-			} else if (row.equals("B")) {
-				value = 1;
-			} else if (row.equals("C")) {
-				value = 2;
-			} else if (row.equals("D")) {
-				value = 3;
-			} else if (row.equals("E")) {
-				value = 4;
-			} else if (row.equals("F")) {
-				value = 5;
-			} else if (row.equals("G")) {
-				value = 6;
-			} else if (row.equals("H")) {
-				value = 7;
-			} else if (row.equals("I")) {
-				value = 8;
-			}
-
+			int value = Character.getNumericValue(row.charAt(0)) - 10;
+						
 			if (action.equals("O")) {
 				field.openTile(value, Integer.parseInt(column));
-
 				return;
 			} else if (action.equals("M")) {
 				field.markTile(value, Integer.parseInt(column));
 				return;
 			}
-		} else {
-			System.out.println("Wrong input, please write correctly !");
 		}
 	}
 }

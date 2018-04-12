@@ -170,12 +170,7 @@ public class Field {
 				for (int columnOffset = -1; columnOffset <= 1; columnOffset++) {
 					int actColumn = column + columnOffset;
 					if (actColumn >= 0 && actColumn < columnCount) {
-						if (tiles[actRow][actColumn] instanceof Clue) {
-							Tile tile = tiles[actRow][actColumn];
-							if (((Clue) tile).getValue() == 0) {
-								openTile(actRow, actColumn);
-							}
-						}
+						openTile(actRow, actColumn);
 					}
 				}
 			}
@@ -220,6 +215,10 @@ public class Field {
 			System.out.print("]");
 			System.out.println();
 		}
+	}
+
+	public int getRemainingMineCount() {
+		return mineCount - getNumberOf(Tile.State.MARKED);
 	}
 
 	public Tile getTile(int row, int column) {

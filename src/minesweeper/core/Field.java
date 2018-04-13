@@ -68,7 +68,7 @@ public class Field {
 			tile.setState(Tile.State.OPEN);
 			if (tile instanceof Clue) {
 				if (((Clue) tile).getValue() == 0) {
-					openAdjacentTiles(row, column);
+					openAdjacentTiles (row, column);
 				}
 			}
 			if (tile instanceof Mine) {
@@ -82,7 +82,7 @@ public class Field {
 			}
 		}
 	}
-
+ ///
 	/**
 	 * Marks tile at specified indeces.
 	 *

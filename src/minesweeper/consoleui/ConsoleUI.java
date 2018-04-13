@@ -22,7 +22,7 @@ public class ConsoleUI implements UserInterface {
 
 	/** Input reader. */
 	private BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
-
+	private Minesweeper instance =  Minesweeper.getInstance();
 	/**
 	 * Reads line of text from the reader.
 	 * 
@@ -48,6 +48,7 @@ public class ConsoleUI implements UserInterface {
 	@Override
 	public void newGameStarted(Field field) {
 		this.field = field;
+		
 		do {
 
 			processInput();
@@ -95,6 +96,8 @@ public class ConsoleUI implements UserInterface {
 			}
 			System.out.println();
 		}
+		System.out.println("Hra trvá :" + ((System.currentTimeMillis())/1000 -( instance.getPlayingSeconds())/1000) + "s" );
+		//System.out.println("Hra trvá :" + (instance.getPlayingSeconds()	- System.currentTimeMillis())/1000 + "s" );
 	}
 
 	/**

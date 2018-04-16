@@ -32,6 +32,10 @@ public class BestTimes implements Iterable<BestTimes.PlayerTime> {
         playerTimes.add(playerTime);
         Collections.sort(playerTimes);
     }
+    
+    public void resetTimes() {
+    	playerTimes = new ArrayList<PlayerTime>();
+    }
 
     /**
      * Returns a string representation of the object.

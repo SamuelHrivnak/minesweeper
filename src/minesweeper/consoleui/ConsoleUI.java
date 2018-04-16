@@ -100,8 +100,11 @@ public class ConsoleUI implements UserInterface {
 			}
 			System.out.println();
 		}
-		System.out.println("Hra trvá :" + ((System.currentTimeMillis())/1000 -( instance.getPlayingSeconds())/1000) + "s" );
+		int cas = (int) (System.currentTimeMillis() - instance.getPlayingSeconds());
+		System.out.println("Hra trvá: "+cas/1000+" s");
 		//System.out.println("Hra trvá :" + (instance.getPlayingSeconds()	- System.currentTimeMillis())/1000 + "s" );
+		String timeStamp = new SimpleDateFormat("yy/MM/dd HH:mm:ss").format(Calendar.getInstance().getTime());
+		System.out.println(timeStamp);
 	}
 
 	/**

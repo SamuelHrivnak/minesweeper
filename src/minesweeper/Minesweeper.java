@@ -14,7 +14,7 @@ public class Minesweeper {
 	private UserInterface userInterface;
 	private long startMillis;
 	private BestTimes bestTimes = new BestTimes();
-	private static Minesweeper instance;
+	private static Minesweeper instance = null;
 	/**
 	 * 
 	 * Constructor.
@@ -30,8 +30,12 @@ public class Minesweeper {
 
 
 	public static Minesweeper getInstance() {
-		return instance;
-	}
+		if(instance == null) {
+	         instance = new Minesweeper();
+	      }
+	      return instance;
+	   }
+	
 	/**
 	 * Main method.
 	 * 
